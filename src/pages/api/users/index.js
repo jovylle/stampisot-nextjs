@@ -10,6 +10,7 @@ export default async function handler (req, res) {
         const result = await pool.query('SELECT * FROM users');
         res.status(200).json(result.rows);
       } catch (error) {
+        console.error('Error during GET request:', error); // Log the error details
         res.status(500).json({ error: 'Internal Server Error' });
       }
       break;
@@ -19,6 +20,7 @@ export default async function handler (req, res) {
         const result = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *', [name, email]);
         res.status(201).json(result.rows[0]);
       } catch (error) {
+        console.error('Error during POST request:', error); // Log the error details
         res.status(500).json({ error: 'Internal Server Error' });
       }
       break;
@@ -28,6 +30,7 @@ export default async function handler (req, res) {
         const result = await pool.query('UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *', [name, email, id]);
         res.status(200).json(result.rows[0]);
       } catch (error) {
+        console.error('Error during PUT request:', error); // Log the error details
         res.status(500).json({ error: 'Internal Server Error' });
       }
       break;
@@ -37,6 +40,7 @@ export default async function handler (req, res) {
         await pool.query('DELETE FROM users WHERE id = $1', [id]);
         res.status(204).end();
       } catch (error) {
+        console.error('Error during DELETE request:', error); // Log the error details
         res.status(500).json({ error: 'Internal Server Error' });
       }
       break;
