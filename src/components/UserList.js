@@ -61,6 +61,7 @@ export default function UserList() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          style={{ border: '1px solid #ccc', padding: '8px', marginBottom: '8px' }}
         />
         <input
           type="email"
@@ -68,15 +69,21 @@ export default function UserList() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          style={{ border: '1px solid #ccc', padding: '8px', marginBottom: '8px' }}
         />
-        <button type="submit">{editId ? 'Update' : 'Create'}</button>
+        <button
+          type="submit"
+          style={{ border: '1px solid #ccc', padding: '8px 16px', cursor: 'pointer' }}
+        >
+          {editId ? 'Update' : 'Create'}
+        </button>
       </form>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
             {user.name} - {user.email}
-            <button onClick={() => handleEdit(user)}>Edit</button>
-            <button onClick={() => handleDelete(user.id)}>Delete</button>
+            <button onClick={() => handleEdit(user)} style={{ marginLeft: '8px', border: '1px solid #ccc', padding: '4px 8px', cursor: 'pointer' }}>Edit</button>
+            <button onClick={() => handleDelete(user.id)} style={{ marginLeft: '8px', border: '1px solid #ccc', padding: '4px 8px', cursor: 'pointer' }}>Delete</button>
           </li>
         ))}
       </ul>
