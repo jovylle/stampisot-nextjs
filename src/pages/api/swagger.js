@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 export default function handler (req, res) {
   const swaggerDefinition = {
@@ -6,14 +7,16 @@ export default function handler (req, res) {
     info: {
       title: "Admin Panel API",
       version: "1.0.0",
-      description: "API documentation for our Next.js project ..",
+      description: "API documentation for our Next.js project",
     },
-    servers: [{ url: "/api" }], // Use relative path
   };
+
+  const apiPath = path.resolve(process.cwd(), "src/pages/api/**/*.js");
+  console.log("Resolved API path:", apiPath); // Log the resolved API path
 
   const options = {
     swaggerDefinition,
-    apis: ["./src/pages/api/**/*.js"], // Relative path to the API files
+    apis: [apiPath], // Absolute path to the API files
   };
 
   console.log("Swagger options:", options); // Log the options to debug
