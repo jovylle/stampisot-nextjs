@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 export default function handler (req, res) {
   const swaggerDefinition = {
@@ -8,12 +9,12 @@ export default function handler (req, res) {
       version: "1.0.0",
       description: "API documentation for our Next.js project",
     },
-    servers: [{ url: "/api" }], // Change to deployed URL later
+    servers: [{ url: "/api" }], // Use relative path
   };
 
   const options = {
     swaggerDefinition,
-    apis: ["./src/pages/api/**/*.js"], // <-- Corrected path
+    apis: [path.resolve(process.cwd(), "src/pages/api/**/*.js")], // Absolute path to the API files
   };
 
   const swaggerSpec = swaggerJSDoc(options);
