@@ -14,7 +14,7 @@ export default function handler (req, res) {
 
   const options = {
     swaggerDefinition,
-    apis: [path.resolve(process.cwd(), "src/pages/api/**/*.js")], // Absolute path to the API files
+    apis: [path.join(__dirname, "users/*.js")], // Explicit path to the API files
   };
 
   console.log("Swagger options:", options); // Log the options to debug
