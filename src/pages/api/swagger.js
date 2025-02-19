@@ -1,36 +1,28 @@
+// filepath: /c:/Users/me/fore/lab/stampisot-nextjs/src/pages/api/swagger.js
 import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import express from "express";
 import path from "path";
-import { sync as globSync } from "glob";
 
-export default function handler (req, res) {
-  const swaggerDefinition = {
-    openapi: "3.0.0",
-    info: {
-      title: "Admin Panel API",
-      version: "1.0.0",
-      description: "API documentation for our Next.js project",
-    },
-    servers: [{ url: "/api" }], // Use relative path
-  };
+const app = express();
 
-  const apiPath = path.resolve(process.cwd(), "src/pages/api/**/*.js");
-  console.log("Resolved API path:", apiPath); // Log the resolved API path
+const swaggerDefinition = {
+  openapi: "3.0.0",
+  info: {
+    title: "Admin Panel API",
+    version: "1.0.0",
+    description: "API documentation for our Next.js project",
+  },
+  servers: [{ url: "/api" }], // Use relative path
+};
 
-  // Use globSync to get the matched files
-  const files = globSync(apiPath);
-  console.log("Matched files:", files); // Log the matched files
+const options = {
+  swaggerDefinition,
+  apis: [path.resolve(process.cwd(), "src/pages/api/**/*.js")], // Absolute path to the API files
+};
 
-  const options = {
-    swaggerDefinition,
-    apis: files, // Use the matched files
-  };
+const swaggerSpec = swaggerJSDoc(options);
 
-  console.log("Swagger options:", options); // Log the options to debug
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  const swaggerSpec = swaggerJSDoc(options);
-
-  console.log("Generated Swagger Spec:", swaggerSpec); // Log the generated spec to debug
-
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json(swaggerSpec);
-}
+export default app;
