@@ -9,14 +9,15 @@ export default function handler (req, res) {
       version: "1.0.0",
       description: "API documentation for our Next.js project",
     },
+    servers: [{ url: "/api" }], // Use relative path
   };
 
-  const apiPath = path.resolve(process.cwd(), "src/pages/api/**/*.js");
+  const apiPath = path.join(__dirname, "users/index.js");
   console.log("Resolved API path:", apiPath); // Log the resolved API path
 
   const options = {
     swaggerDefinition,
-    apis: [apiPath], // Absolute path to the API files
+    apis: [apiPath], // Explicit path to a single file
   };
 
   console.log("Swagger options:", options); // Log the options to debug
