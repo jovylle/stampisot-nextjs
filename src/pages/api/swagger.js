@@ -1,5 +1,4 @@
 import swaggerJSDoc from "swagger-jsdoc";
-import path from "path";
 
 export default function handler (req, res) {
   const swaggerDefinition = {
@@ -14,10 +13,14 @@ export default function handler (req, res) {
 
   const options = {
     swaggerDefinition,
-    apis: [path.resolve(process.cwd(), "src/pages/api/**/*.js")], // Absolute path to the API files
+    apis: ["./src/pages/api/**/*.js"], // Relative path to the API files
   };
 
+  console.log("Swagger options:", options); // Log the options to debug
+
   const swaggerSpec = swaggerJSDoc(options);
+
+  console.log("Generated Swagger Spec:", swaggerSpec); // Log the generated spec to debug
 
   res.setHeader("Content-Type", "application/json");
   res.status(200).json(swaggerSpec);
