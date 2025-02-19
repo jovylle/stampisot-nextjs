@@ -1,6 +1,6 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import path from "path";
-import glob from "glob";
+import { sync as globSync } from "glob";
 
 export default function handler (req, res) {
   const swaggerDefinition = {
@@ -13,11 +13,11 @@ export default function handler (req, res) {
     servers: [{ url: "/api" }], // Use relative path
   };
 
-  const apiPath = path.join(__dirname, "../../../src/pages/api/**/*.js");
+  const apiPath = path.resolve(process.cwd(), "src/pages/api/**/*.js");
   console.log("Resolved API path:", apiPath); // Log the resolved API path
 
-  // Use glob.sync to get the matched files
-  const files = glob.sync(apiPath);
+  // Use globSync to get the matched files
+  const files = globSync(apiPath);
   console.log("Matched files:", files); // Log the matched files
 
   const options = {
