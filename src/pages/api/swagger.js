@@ -8,7 +8,7 @@ export default function handler (req, res) {
       version: "1.0.0",
       description: "API documentation for our Next.js project",
     },
-    servers: [{ url: "http://localhost:3000/api" }], // Change to deployed URL later
+    servers: [{ url: "/api" }], // Change to deployed URL later
   };
 
   const options = {
