@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 export default function handler (req, res) {
   const swaggerDefinition = {
@@ -13,7 +14,7 @@ export default function handler (req, res) {
 
   const options = {
     swaggerDefinition,
-    apis: ["./src/pages/api/**/*.js"], // Relative path to the API files
+    apis: [path.resolve(process.cwd(), "src/pages/api/**/*.js")], // Absolute path to the API files
   };
 
   console.log("Swagger options:", options); // Log the options to debug
