@@ -12,12 +12,9 @@ export default function handler (req, res) {
     servers: [{ url: "/api" }], // Use relative path
   };
 
-  const apiPath = path.resolve(process.cwd(), "src/pages/api/**/*.js");
-  console.log("Resolved API path:", apiPath); // Log the resolved API path
-
   const options = {
     swaggerDefinition,
-    apis: [apiPath], // Absolute path to the API files
+    apis: [path.join(__dirname, "../../../src/pages/api/**/*.js")], // Explicit path to the API files
   };
 
   console.log("Swagger options:", options); // Log the options to debug
