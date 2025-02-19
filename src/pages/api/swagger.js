@@ -16,28 +16,21 @@ export default function handler (req, res) {
   const apiPath = path.join(__dirname, "../../../src/pages/api/**/*.js");
   console.log("Resolved API path:", apiPath); // Log the resolved API path
 
-  // Log the matched files
-  glob(apiPath, (err, files) => {
-    if (err) {
-      console.error("Error matching files:", err);
-      res.status(500).json({ error: "Internal Server Error" });
-      return;
-    }
+  // Use glob.sync to get the matched files
+  const files = glob.sync(apiPath);
+  console.log("Matched files:", files); // Log the matched files
 
-    console.log("Matched files:", files); // Log the matched files
+  const options = {
+    swaggerDefinition,
+    apis: files, // Use the matched files
+  };
 
-    const options = {
-      swaggerDefinition,
-      apis: files, // Use the matched files
-    };
+  console.log("Swagger options:", options); // Log the options to debug
 
-    console.log("Swagger options:", options); // Log the options to debug
+  const swaggerSpec = swaggerJSDoc(options);
 
-    const swaggerSpec = swaggerJSDoc(options);
+  console.log("Generated Swagger Spec:", swaggerSpec); // Log the generated spec to debug
 
-    console.log("Generated Swagger Spec:", swaggerSpec); // Log the generated spec to debug
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(swaggerSpec);
-  });
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).json(swaggerSpec);
 }
