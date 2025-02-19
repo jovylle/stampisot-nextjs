@@ -1,10 +1,4 @@
-import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from '../../utils/swagger';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const swaggerUiDist = require('swagger-ui-dist');
-
-const swaggerUiAssetPath = swaggerUiDist.getAbsoluteFSPath();
 
 export default function handler (req, res) {
   if (req.method === 'GET') {
@@ -17,34 +11,28 @@ export default function handler (req, res) {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Swagger UI</title>
-          <link rel="stylesheet" type="text/css" href="/api/swagger/swagger-ui.css" >
-          <link rel="icon" type="image/png" href="/api/swagger/favicon-32x32.png" sizes="32x32" />
-          <link rel="icon" type="image/png" href="/api/swagger/favicon-16x16.png" sizes="16x16" />
+          <link rel="stylesheet" type="text/css" href="/swagger/swagger-ui.css" >
+          <link rel="icon" type="image/png" href="/swagger/favicon-32x32.png" sizes="32x32" />
+          <link rel="icon" type="image/png" href="/swagger/favicon-16x16.png" sizes="16x16" />
           <style>
-            html
-            {
+            html {
               box-sizing: border-box;
               overflow: -moz-scrollbars-vertical;
               overflow-y: scroll;
             }
-            *,
-            *:before,
-            *:after
-            {
+            *, *:before, *:after {
               box-sizing: inherit;
             }
-
-            body
-            {
-              margin:0;
+            body {
+              margin: 0;
               background: #fafafa;
             }
           </style>
         </head>
         <body>
           <div id="swagger-ui"></div>
-          <script src="/api/swagger/swagger-ui-bundle.js"> </script>
-          <script src="/api/swagger/swagger-ui-standalone-preset.js"> </script>
+          <script src="/swagger/swagger-ui-bundle.js"> </script>
+          <script src="/swagger/swagger-ui-standalone-preset.js"> </script>
           <script>
           window.onload = function() {
             const ui = SwaggerUIBundle({
@@ -70,8 +58,7 @@ export default function handler (req, res) {
       res.setHeader('Content-Type', 'application/json');
       res.send(swaggerSpec);
     } else {
-      const filePath = `${swaggerUiAssetPath}${req.url.replace('/api/swagger', '')}`;
-      res.sendFile(filePath);
+      res.status(404).end();
     }
   } else {
     res.setHeader('Allow', ['GET']);
