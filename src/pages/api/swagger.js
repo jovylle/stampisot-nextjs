@@ -1,5 +1,5 @@
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from '../../swaggerConfig';
+import swaggerSpec from '../../src/utils/swaggerConfig';
 
 const handler = async (req, res) => {
   await new Promise((resolve, reject) => {

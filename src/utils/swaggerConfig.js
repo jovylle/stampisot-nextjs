@@ -9,7 +9,7 @@ const options = {
       description: 'A description of your API',
     },
   },
-  apis: ['./pages/api/*.js'], // Path to the API docs
+  apis: ['./pages/api/**/*.js'], // Path to the API docs
 };
 
 const swaggerSpec = swaggerJSDoc(options);
