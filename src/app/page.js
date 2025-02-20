@@ -1,15 +1,13 @@
 import Link from 'next/link';
-import UserList from '../components/UserList';
 
 export default function Home () {
   return (
     <div className="text-center">
-      <main className="">
+      <main className="my-10">
         {/* ... existing code ... */}
-        <Link href="/api/swagger" className="text-blue-600 underline">
-          API Documentation (docs)
+        <Link href="/docs" className="text-blue-600 underline font-bold text-2xl">
+          API Documentation (/docs)
         </Link>
-        <UserList />
         {/* ... existing code ... */}
       </main>
       {/* ... existing code ... */}
