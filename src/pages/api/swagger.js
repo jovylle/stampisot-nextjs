@@ -1,12 +1,19 @@
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from '../../src/utils/swaggerConfig';
+import swaggerSpec from '../../utils/swaggerConfig';
 
-const handler = async (req, res) => {
-  await new Promise((resolve, reject) => {
-    swaggerUi.setup(swaggerSpec)(req, res, (result) =>
-      result instanceof Error ? reject(result) : resolve(result)
-    );
-  });
+const handler = (req, res) => {
+  if (req.method === 'GET') {
+    swaggerUi.setup(swaggerSpec)(req, res);
+  } else {
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+};
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
 
 export default handler;
