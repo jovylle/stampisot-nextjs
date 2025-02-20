@@ -1,64 +1,105 @@
-// filepath: /c:/Users/me/fore/lab/stampisot-nextjs/src/pages/api/users/index.js
 import pool from '../../../utils/db';
 
 /**
  * @swagger
  * /api/users:
  *   get:
- *     description: Get all users
+ *     summary: Retrieve a list of users
  *     responses:
  *       200:
- *         description: Success
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *       500:
+ *         description: Internal Server Error
  *   post:
- *     description: Create a new user
- *     parameters:
- *       - name: name
- *         description: User's name
- *         required: true
- *         schema:
- *           type: string
- *       - name: email
- *         description: User's email
- *         required: true
- *         schema:
- *           type: string
+ *     summary: Create a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
  *     responses:
  *       201:
- *         description: Created
+ *         description: The user was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
  *   put:
- *     description: Update a user
- *     parameters:
- *       - name: id
- *         description: User's ID
- *         required: true
- *         schema:
- *           type: integer
- *       - name: name
- *         description: User's name
- *         required: true
- *         schema:
- *           type: string
- *       - name: email
- *         description: User's email
- *         required: true
- *         schema:
- *           type: string
+ *     summary: Update an existing user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
  *     responses:
  *       200:
- *         description: Updated
+ *         description: The user was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
  *   delete:
- *     description: Delete a user
- *     parameters:
- *       - name: id
- *         description: User's ID
- *         required: true
- *         schema:
- *           type: integer
+ *     summary: Delete an existing user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
  *     responses:
  *       204:
- *         description: No Content
+ *         description: The user was successfully deleted
+ *       500:
+ *         description: Internal Server Error
  */
-
 export default async function handler (req, res) {
   const { method } = req;
 
